@@ -1,0 +1,14 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    width: 100vw;
+}
+li {
+    list-style: none;
+}
+a {
+    color:#000;
+    text-decoration: none;
+}
