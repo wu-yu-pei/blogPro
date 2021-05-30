@@ -3,7 +3,7 @@
     padding: 0;
 }
 body {
-    width: 100vw;
+    max-width: 100vw;
 }
 li {
     list-style: none;
@@ -11,4 +11,13 @@ li {
 a {
     color:#000;
     text-decoration: none;
+}
+/* 重写element的日期样式 */
+.el-calendar {
+    width: 100%;
+    margin-top: 20px;
+    margin-left: 0 !important;
+}
+.el-calendar-table .el-calendar-day {
+    height: 41px !important;
 }

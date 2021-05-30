@@ -102,8 +102,8 @@ export default {
             }else if(!/^[\w]{6,12}$/.test(this.password)) {
                 alert("密码格式错误")
             } else {
-                setUser({userid:this.phone,password:this.password}).then(res => {
-                    console.log(res)
+                setUser({userid:this.phone,password:this.password,username:'blogPro',userinit:`${+new Date().getFullYear()}-${+new Date().getMonth()+1}-${+new Date().getDate()}`}).then(res => {
+                    // console.log(res)
                     if(res.data === true) {
                         alert('注册成功')
                         this.$router.push('/logon')

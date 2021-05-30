@@ -45,11 +45,12 @@ export default {
             }else {
                 getUsers({userid:this.userid,password:this.password}).then(res => {
                     if(res.data.length === 1) {
-                        this.$router.push('/index')
+                        this.$router.push('/index');
                         // 标识 是否登录过
                         console.log(this.userid);
                         localStorage.setItem(`${this.userid}`,1)
                         localStorage.setItem("blogpro",1)
+                        localStorage.setItem('userinfo',JSON.stringify({userid:`${this.userid}`}))
                         this.userid = ""
                         this.password = ""
                     }else {
