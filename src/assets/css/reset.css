@@ -11,6 +11,7 @@ li {
 a {
     color:#000;
     text-decoration: none;
+    cursor: pointer;
 }
 /* 重写element的日期样式 */
 .el-calendar {
@@ -20,4 +21,8 @@ a {
 }
 .el-calendar-table .el-calendar-day {
     height: 41px !important;
+}
+/* vue 路由激活时的链接 */
+.router-link-active {
+    border-bottom: 2px solid #8afa45;
 }

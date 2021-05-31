@@ -15,11 +15,31 @@ const routes = [
     component:() => import('../views/LogIn/index.vue'),
     meta:{title:'注册'}
 
-  }, 
+  },   
+  {
+    path:'/showacticle',
+    component:() => import("../views/ShowActicle/index.vue")
+  },
   {
     path:'/index',
-    component:() => import('../views/Index/index.vue')
-  }
+    component:() => import('../views/Index/index.vue'),
+    redirect:'/index/lately',
+    children:[
+        {
+          path:"/index/lately",
+          component:() => import("../views/Lately/index.vue")
+        },
+        {
+          path:'/index/allactive',
+          component:() => import("../views/AllActicle/index.vue")
+        },
+        {
+          path:"/index/follow",
+          component:() => import("../views/Follow/index.vue")
+        }
+    ]
+  },
+
 ]
 
 const router = createRouter({

@@ -2,7 +2,7 @@
   <div class="index">
       <div class="index-header-nav">
         <div class="index-header-nav-left">
-          <h1 @click="out">Blog</h1>
+          <h1 @click="out" title="退出">Blog</h1>
         </div>
         <div class="index-header-nav-right">
           <ul>
@@ -104,21 +104,16 @@
         </div>
         <div class="index-body-right">
           <div class="index-body-right-nav">
-            <router-link to="" class="nav-item">最近</router-link>
-            <router-link to="" class="nav-item">文章</router-link>
-            <router-link to="" class="nav-item">关注</router-link>
+            <router-link to="/index/lately" class="nav-item" active-class="router-link-active">最近</router-link>
+            <router-link to="/index/allactive" class="nav-item" active-class="router-link-active">文章</router-link>
+            <router-link to="/index/follow" class="nav-item" active-class="router-link-active">关注</router-link>
           </div>
           <div class="index-body-right-view">
               <router-view></router-view>
           </div>
         </div>
       </div> 
-      <el-backtop visibility-height="100">
-        <div class="line1">
-        
-        </div>
-      </el-backtop>
-      
+      <BackTop></BackTop>
   </div>
    
 </template>
@@ -126,6 +121,8 @@
 <script>
 import {ref} from 'vue'
 import getUserinfo from '../../api/index/index'
+// 返回顶部 组件
+import BackTop from '../../components/BackTop/index'
 export default {
     name:'index',
     setup(props) {
@@ -138,6 +135,9 @@ export default {
         infobirthday
       }
     },
+    components:{
+      BackTop
+    },
     methods: {
       //点击h1 退出
       out() {
@@ -146,11 +146,13 @@ export default {
       }
     },
     created() {
+      // 修改title
+      document.title = "首页"
       // 发请求,获取个人信息 进行展示
       getUserinfo({
         userid:JSON.parse(localStorage.getItem("userinfo")).userid,
       }).then(res => {
-        console.log(res);
+        // console.log(res);
         this.infoname = res.data[0].username
         this.infobirthday = res.data[0].userinit
       })
@@ -159,6 +161,9 @@ export default {
 </script>
 
 <style scoped lang="less">
+// #app {
+// background-color: red !important;
+// }
 .index {
     position: relative;
     width: 1300px;
@@ -167,6 +172,7 @@ export default {
     margin: 0  auto;
     box-sizing: border-box;
     padding-bottom: 20px;
+    // background: url("../../../src/assets/imgs/indexbg.gif") repeat;
     .index-header-nav {
       width: 100%;
       height: 61px;
@@ -279,7 +285,7 @@ export default {
           justify-content: space-around;
           align-items: center;
           flex-direction: column;
-          width: 100px;
+          width: 150px;
           height: 100px;
           margin: 0 10px;
           :first-child {
@@ -297,15 +303,17 @@ export default {
       display: flex;
       justify-content: space-between;
       width: 100%;
-      height: 1020px;
+      // height: 1020px;
+      height: auto;
       margin-top: -75px;
       background-color: #f4f5f5;
       padding-top: 20px;
       padding-bottom: 20px;
       padding-right: 10px;
+      // overflow: hidden;
       .index-body-left {
         width: 29%;
-        height: 200px;
+        // height: 200px;
         >div {
           margin-left: 10px;
           box-sizing: border-box;
@@ -345,7 +353,7 @@ export default {
       }
       .index-body-right {
         width: 68%;
-        height: 200px;
+        // height: 200px;
         div {
           margin-right: 10px;
         }
@@ -354,40 +362,17 @@ export default {
           height: 50px;
           background-color: #fff;
           padding: 0 20px;
+          margin-bottom: 20px;
           .nav-item {
             display: block;
             float: left;
             width: 100px;
             height: 100%;
+            text-align: center;
             line-height: 50px;
           }
         }
       }
-    }
-    .line1 {
-      position: fixed;
-      top: 0;
-      left: 8px;
-      width: 50px;
-      height: 90vh;
-      background: url("../../../src/assets/imgs/line.gif");
-      background-size: cover;
-      cursor: pointer;
-      animation: move 1.1s  linear infinite alternate;
-    }
-    @keyframes move {
-      from {
-        top: 0;
-      }
-      to {
-        top: -25px;
-      }
-    }
-    /* 重写返回顶部样式 */
-    .el-backtop {
-        /* display: none !important; */
-        width: 0 !important;
-        height: 0 !important;
     }
 }
 

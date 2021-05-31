@@ -15,6 +15,8 @@ export default function request(config) {
         }
         promise.then(res => {
             resolve(res)
+        },err => {
+            reject(err)
         })
     })
 }
