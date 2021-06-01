@@ -49,8 +49,8 @@ export default {
                         // 标识 是否登录过
                         console.log(this.userid);
                         localStorage.setItem(`${this.userid}`,1)
-                        localStorage.setItem("blogpro",1)
-                        localStorage.setItem('userinfo',JSON.stringify({userid:`${this.userid}`}))
+                        localStorage.setItem("blogpro",1)   
+                        localStorage.setItem('userinfo',JSON.stringify({userid:`${this.userid}`,username:`${res.data[0].username}`}))
                         this.userid = ""
                         this.password = ""
                     }else {

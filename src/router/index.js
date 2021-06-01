@@ -18,7 +18,13 @@ const routes = [
   },   
   {
     path:'/showacticle',
+    name:'showacticle',
     component:() => import("../views/ShowActicle/index.vue")
+  },
+  {
+    path:'/change',
+    name:'change',
+    component:() => import("../views/Change/index.vue")
   },
   {
     path:'/index',

@@ -1,5 +1,5 @@
 <template>
-  <div class="show-item">
+  <div class="show-item" @click="goShow(id)">
     <div class="show-item-title">
         {{time}}
     </div>
@@ -19,7 +19,17 @@
 <script>
 export default {
     name:'showitem',
+    methods: {
+        goShow(id) {
+            console.log(id);
+            this.$router.push({path:'/showacticle',query:{id:id}})
+        }
+    },
     props: {
+        id:{
+            type:String,
+            default:''
+        },
         time:{
             type:String,
             default:'2020-12-20'
