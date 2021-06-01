@@ -71,12 +71,15 @@
               <span>TA的分类</span>
             </div>
             <div class="left-classify-body">
-              <div>· JavaScript</div>
-              <div>· TypeScript</div>
+              <div v-if="getTagName.length == 0" class="nodate">暂无数据</div>
+              <template v-else>
+                <div v-for="(item,index) in getTagName" :key="index">· {{item}} <span> {{targcount[item]}}篇</span></div>
+              </template>
+              <!-- <div>· TypeScript</div>
               <div>· Css</div>
               <div>· Vue</div>
               <div>· React</div>
-              <div>· Node</div>
+              <div>· Node</div> -->
             </div>
           </div>
           <!-- 最新文章 -->
@@ -86,8 +89,10 @@
               <span>最新文章</span>
             </div>
             <div class="left-classify-body">
-              <div>title</div>
-              <div>title</div>
+              <div v-if="allacticles.length == 0" class="nodate">暂无数据</div>
+              <template v-else>
+                <div v-for="(item,index) in allacticles.slice(0,5)" @click="goShow(item.acticleinfoid)" :key="index">{{item.acticleinfotitle}} <span style="float:right;margin-right:40px">{{item.acticleinfotime}}</span></div>
+              </template>
             </div>
           </div>
           <!-- 最新评论 -->
@@ -114,6 +119,8 @@
         </div>
       </div> 
       <BackTop></BackTop>
+      <div>
+      </div>
   </div>
    
 </template>
@@ -121,6 +128,7 @@
 <script>
 import {ref} from 'vue'
 import getUserinfo from '../../api/index/index'
+import getUserAllActicle from'../../api/allacticle/index'
 // 返回顶部 组件
 import BackTop from '../../components/BackTop/index'
 export default {
@@ -129,20 +137,49 @@ export default {
       let date = new Date()
       let infoname = ref('')
       let infobirthday = ref('')
+
       return {
         date,
         infoname,
         infobirthday
       }
     },
+    data() {
+      return {
+        allacticles:[],
+        targname:[],
+        targcount:{}
+      }
+    },
     components:{
       BackTop
+    },
+    computed : {
+      getTagName() {
+        for(let i = 0;i<this.allacticles.length;i++) {
+          this.targname.push(this.allacticles[i].acticleinfocol)
+        }
+        this.targcount =  this.targname.reduce((obj,name) => {
+          if(name in obj) {
+            obj[name]++
+          }else {
+            obj[name] = 1
+          }
+          return obj
+        },{})
+        // 进行数组的去重 但是获取不到每个分类又多少文章了
+        return [...new Set(this.targname)]
+      }
     },
     methods: {
       //点击h1 退出
       out() {
         this.$router.replace('/')
         localStorage.setItem('blogpro',0)
+      },
+      // 跳转到展示页面
+      goShow(id) {
+        this.$router.push({path:'/showacticle',query:{id:id}})
       }
     },
     created() {
@@ -155,6 +192,10 @@ export default {
         // console.log(res);
         this.infoname = res.data[0].username
         this.infobirthday = res.data[0].userinit
+      })
+      // 发请求 提取标签
+      getUserAllActicle({phone:JSON.parse(localStorage.getItem("userinfo")).userid}).then(res => {
+        this.allacticles = res.data
       })
     },
 }
@@ -311,6 +352,12 @@ export default {
       padding-bottom: 20px;
       padding-right: 10px;
       // overflow: hidden;
+      .nodate {
+        text-align: center;
+        height: 100px !important;
+        line-height: 100px;
+        margin-left: -60px !important;
+      }
       .index-body-left {
         width: 29%;
         // height: 200px;
@@ -347,6 +394,10 @@ export default {
               height: 30px;
               margin: 5px 0;
               cursor: pointer;
+              span {
+                float: right;
+                margin-right: 40px;
+              }
             }
           }
         }
