@@ -64,6 +64,8 @@ export default {
     box-sizing: border-box;
     cursor: pointer;
     margin: 15px 0;
+    margin-bottom: 25px;
+    border-radius: 8px;
     .show-item-title {
         width: 100%;
         height: 24px;

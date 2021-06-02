@@ -13,7 +13,7 @@
               <a href="">首页</a>
             </li>
             <li>
-              <a href="">新随笔</a>
+              <a @click="goWrite()">新随笔</a>
             </li>
             <li>
               <a href="">联系</a>
@@ -40,7 +40,7 @@
             <span>被访问量</span>
           </div>
           <div class="index-info-myinfo-item">
-            <span>13</span>
+            <span>{{allacticles.length}}</span>
             <span>原创文章</span>
           </div>
           <div class="index-info-myinfo-item">
@@ -71,7 +71,7 @@
               <span>TA的分类</span>
             </div>
             <div class="left-classify-body">
-              <div v-if="getTagName.length == 0" class="nodate">暂无数据</div>
+                <NoDate  v-if="getTagName.length == 0"></NoDate>
               <template v-else>
                 <div v-for="(item,index) in getTagName" :key="index">· {{item}} <span> {{targcount[item]}}篇</span></div>
               </template>
@@ -89,7 +89,7 @@
               <span>最新文章</span>
             </div>
             <div class="left-classify-body">
-              <div v-if="allacticles.length == 0" class="nodate">暂无数据</div>
+              <NoDate  v-if="getTagName.length == 0"></NoDate>
               <template v-else>
                 <div v-for="(item,index) in allacticles.slice(0,5)" @click="goShow(item.acticleinfoid)" :key="index">{{item.acticleinfotitle}} <span style="float:right;margin-right:40px">{{item.acticleinfotime}}</span></div>
               </template>
@@ -102,15 +102,18 @@
               <span>最新评论</span>
             </div>
             <div class="left-classify-body">
-              <div>写的不错,加个好友吧</div>
-              <div>牛啊牛啊</div>
+              <!-- <div>写的不错,加个好友吧</div>
+              <div>牛啊牛啊</div> -->
+              <div class="nodate">
+                功能暂未开放
+              </div>
             </div>
           </div>
         </div>
         <div class="index-body-right">
           <div class="index-body-right-nav">
-            <router-link to="/index/lately" class="nav-item" active-class="router-link-active">最近</router-link>
-            <router-link to="/index/allactive" class="nav-item" active-class="router-link-active">文章</router-link>
+            <router-link to="/index/lately" class="nav-item" active-class="router-link-active">最近·{{allacticles.slice(0,5).length}}</router-link>
+            <router-link to="/index/allactive" class="nav-item" active-class="router-link-active">文章·{{allacticles.length}}</router-link>
             <router-link to="/index/follow" class="nav-item" active-class="router-link-active">关注</router-link>
           </div>
           <div class="index-body-right-view">
@@ -131,6 +134,7 @@ import getUserinfo from '../../api/index/index'
 import getUserAllActicle from'../../api/allacticle/index'
 // 返回顶部 组件
 import BackTop from '../../components/BackTop/index'
+import NoDate from '../../components/NoDate/index'
 export default {
     name:'index',
     setup(props) {
@@ -152,7 +156,8 @@ export default {
       }
     },
     components:{
-      BackTop
+      BackTop,
+      NoDate
     },
     computed : {
       getTagName() {
@@ -180,6 +185,10 @@ export default {
       // 跳转到展示页面
       goShow(id) {
         this.$router.push({path:'/showacticle',query:{id:id}})
+      },
+      // 去 write
+      goWrite() {
+        this.$router.push({path:'/write'})
       }
     },
     created() {
@@ -225,7 +234,8 @@ export default {
         float: left;
         h1 {
           cursor: pointer;
-           text-shadow: 1.8px -0.2px 0.1px #000,2.8px -1.2px 0.1px #000;
+          color: #fff;
+           text-shadow: 1.8px -0.2px 0.1px #fff,2.8px -1.2px 0.1px #fff;
         }
       }
       .index-header-nav-right {
@@ -243,6 +253,9 @@ export default {
             border: 2px solid transparent;
             letter-spacing: 3px;
             font-weight: 700;
+            a {
+              color: #fff;
+            }
             &:hover a{
               color: blue;
             }
@@ -267,7 +280,7 @@ export default {
     }
     .index-baner {
       position: relative;
-      width: 100%;
+      width: calc(101% - 3px);
       height: 100px;
       background: #412e2e;
       background: url("../../assets/imgs/banerbg.jpg");
@@ -302,9 +315,10 @@ export default {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      width: 100%;
+      width: calc(101% - 3px);
       height: 338px;
-      background-color: #fff;
+      // background-color: #fff;
+      color: #fff;
       margin-top: 0px;
       h1 {
         font-weight: normal;
@@ -347,20 +361,20 @@ export default {
       // height: 1020px;
       height: auto;
       margin-top: -75px;
-      background-color: #f4f5f5;
+      // background-color: #f4f5f5;
       padding-top: 20px;
       padding-bottom: 20px;
       padding-right: 10px;
       // overflow: hidden;
-      .nodate {
-        text-align: center;
-        height: 100px !important;
-        line-height: 100px;
-        margin-left: -60px !important;
-      }
       .index-body-left {
         width: 29%;
         // height: 200px;
+        .nodate {
+        text-align: center;
+        height: 200px !important;
+        margin-left: -60px !important;
+        line-height: 200px;
+      }
         >div {
           margin-left: 10px;
           box-sizing: border-box;
@@ -409,7 +423,7 @@ export default {
           margin-right: 10px;
         }
         .index-body-right-nav {
-          width: 100%;
+          width: 93%;
           height: 50px;
           background-color: #fff;
           padding: 0 20px;
@@ -422,6 +436,9 @@ export default {
             text-align: center;
             line-height: 50px;
           }
+        }
+        .index-body-right-view {
+          // background-color: #fff;
         }
       }
     }

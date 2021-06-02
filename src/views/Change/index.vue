@@ -60,6 +60,7 @@ export default {
 h1 {
     text-align: center;
     margin: 5px;
+    color: #fff;
 }
 .sure {
     position: fixed;

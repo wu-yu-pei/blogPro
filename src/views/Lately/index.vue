@@ -1,6 +1,6 @@
 <template>
   <div>
-      <div v-if="allacticle.length == 0" class="nodata">暂无数据</div>
+      <NoDate  v-if="allacticle.length == 0"></NoDate>
       <div v-else>
         <!-- 截取最新的8篇文章 -->
         <ShowItem @click="toinfo(item.acticleinfoid)" v-for="(item,index) in allacticle.slice(0,8)" :id="item.acticleinfoid" :time="item.acticleinfotime" :key="index" :body="item.acticleinfobody" :readcount="item.acticleinforeadcount" :commencount="0" :likecount="item.acticleinfolikecount"></ShowItem>
@@ -10,6 +10,7 @@
 
 <script>
 import ShowItem from '../../components/ShowItem/index'
+import NoDate from '../../components/NoDate'
 import {mapActions, mapState} from 'vuex'
 export default {
   name:'latery',
@@ -19,7 +20,8 @@ export default {
     }
   },
   components: {
-    ShowItem
+    ShowItem,
+    NoDate
   },
   methods: {
     ...mapActions({

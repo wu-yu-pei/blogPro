@@ -10,7 +10,7 @@ import '../src/assets/css/reset.css'
 
 import 'element-plus/lib/theme-chalk/index.css';
 
-import { ElInput, ElButton, ElCalendar,ElBacktop} from 'element-plus';
+import { ElInput, ElButton, ElCalendar,ElBacktop,ElSelect,ElOption,ElDatePicker} from 'element-plus';
 // 设置elemnt 中文
 import lang from 'element-plus/lib/locale/lang/zh-cn'
 import 'dayjs/locale/zh-cn'
@@ -33,8 +33,11 @@ VueMarkdownEditor.use(githubTheme, {
 
 const app = createApp(App)
 app.use(ElInput)
+app.use(ElSelect)
 app.use(ElButton)
 app.use(ElCalendar)
 app.use(ElBacktop)
+app.use(ElOption)
+app.use(ElDatePicker)
 app.use(VueMarkdownEditor);
 app.use(store).use(router).mount('#app')

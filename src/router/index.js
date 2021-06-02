@@ -13,7 +13,7 @@ const routes = [
   {
     path:'/login',
     component:() => import('../views/LogIn/index.vue'),
-    meta:{title:'注册'}
+    meta:{title:'注册',keepAlive:false}
 
   },   
   {
@@ -25,6 +25,11 @@ const routes = [
     path:'/change',
     name:'change',
     component:() => import("../views/Change/index.vue")
+  },
+  {
+    path:'/write',
+    name:'write',
+    component:() => import("../views/Write/index.vue")
   },
   {
     path:'/index',
