@@ -3,7 +3,7 @@
       <NoDate v-if="allacticle.length == 0"></NoDate>
       <div v-else>
         <!-- 所有文章 -->
-        <ShowItem @click="toinfo(item.acticleinfoid)" v-for="(item,index) in allacticle" :time="item.acticleinfotime" :key="index" :body="item.acticleinfobody" :readcount="item.acticleinforeadcount" :commencount="0" :likecount="item.acticleinfolikecount"></ShowItem>
+        <ShowItem @click="toinfo(item.acticleinfoid)" v-for="(item,index) in allacticle" :id="item.acticleinfoid" :time="item.acticleinfotime" :key="index" :body="item.acticleinfobody" :readcount="item.acticleinforeadcount" :commencount="0" :likecount="item.acticleinfolikecount"></ShowItem>
       </div>
   </div>
 </template> 
@@ -28,7 +28,7 @@ export default {
       GetUserAllActicle:"Index/GetUserAllActicle"
     }),
     toinfo(acticleid) {
-      console.log(acticleid);
+      // console.log(acticleid);
     }
   },
   computed:{

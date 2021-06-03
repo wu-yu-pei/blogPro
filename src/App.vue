@@ -17,6 +17,8 @@ export default {
     if(localStorage.getItem('blogpro') !== "1") {
       console.log(20);
       this.$router.push('/')
+    }else {
+      // this.$router.replace('/index')
     }
   },
 }
@@ -24,7 +26,8 @@ export default {
 
 <style scoped lang='less'>
 .index {
-  background: #000;
+  // background: #000;
+  background: url("../src/assets/imgs/indexbg-index.gif");
   // background: url("../src/assets/imgs/indexbg.png") repeat-y;
   // background-size: cover;
 }

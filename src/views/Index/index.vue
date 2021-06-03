@@ -7,7 +7,7 @@
         <div class="index-header-nav-right">
           <ul>
             <li>
-              <a href="https://www.cnblogs.com/">博客园</a>
+              <a @click="goAlluserActicle()">博客园</a>
             </li>
             <li>
               <a href="">首页</a>
@@ -16,10 +16,10 @@
               <a @click="goWrite()">新随笔</a>
             </li>
             <li>
-              <a href="">联系</a>
+              <a @click="goContact()">联系</a>
             </li>
             <li>
-              <a href="">管理</a>
+              <a @click="goAdministration()">管理</a>
             </li>
           </ul>
         </div>
@@ -27,6 +27,7 @@
       <div class="index-baner">
         <p>work</p>
         <p>love work</p>
+        <!-- <img src="../../assets/imgs/index-ban.png" alt=""> -->
         <div class="index-info-image">
           <img src="../../assets/imgs/infoimg.gif " alt="">
         </div>
@@ -184,12 +185,23 @@ export default {
       },
       // 跳转到展示页面
       goShow(id) {
+        console.log(id);
         this.$router.push({path:'/showacticle',query:{id:id}})
       },
       // 去 write
       goWrite() {
         this.$router.push({path:'/write'})
-      }
+      },
+      goAlluserActicle() {
+        this.$router.push({path:'/alluseracticle'})
+      },
+      goContact() {
+        this.$router.push({path:'/contact'})
+      },
+      goAdministration() {
+        this.$router.push({path:'/administration'})
+      },
+
     },
     created() {
       // 修改title
@@ -205,6 +217,7 @@ export default {
       // 发请求 提取标签
       getUserAllActicle({phone:JSON.parse(localStorage.getItem("userinfo")).userid}).then(res => {
         this.allacticles = res.data
+        // console.log(res.data);
       })
     },
 }
@@ -283,9 +296,10 @@ export default {
       width: calc(101% - 3px);
       height: 100px;
       background: #412e2e;
-      background: url("../../assets/imgs/banerbg.jpg");
-      background-size: cover;
-      background-position: -200px 0;
+      // background: url("../../assets/imgs/banerbg.jpg");
+      background: url("../../assets/imgs/index-ban-bg.gif") no-repeat;
+      // background-size: cover;
+      background-position: 970px 0;
       line-height: 30px;
       p {
         color: #fff;

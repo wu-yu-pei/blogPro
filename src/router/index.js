@@ -29,7 +29,23 @@ const routes = [
   {
     path:'/write',
     name:'write',
-    component:() => import("../views/Write/index.vue")
+    component:() => import("../views/Write/index.vue"),
+    meta:{keepAlive:false}
+  },
+  {
+    path:'/alluseracticle',
+    name:'alluseracticel',
+    component:() => import("../views/AllUserActicle/index.vue")
+  },
+  {
+    path:'/contact',
+    name:'contact',
+    component:() => import("../views/Contact/index.vue")
+  },
+  {
+    path:'/administration',
+    name:'administration',
+    component:() => import("../views/Administration/index.vue")
   },
   {
     path:'/index',

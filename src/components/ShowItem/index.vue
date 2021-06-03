@@ -21,7 +21,7 @@ export default {
     name:'showitem',
     methods: {
         goShow(id) {
-            console.log(id);
+            // console.log(id);
             this.$router.push({path:'/showacticle',query:{id:id}})
         }
     },

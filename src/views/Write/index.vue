@@ -26,6 +26,7 @@
                 v-model="time"
                 type="date"
                 placeholder="选择日期"
+                readonly=true
                 >
                 </el-date-picker>
             </div>
@@ -55,7 +56,7 @@ export default {
         title:'',
         text:'',
         type: '',
-        time:'',
+        time:new Date(),
         options: [{
           value: 'JavaScript',
           label: 'JavaScript'
@@ -63,25 +64,25 @@ export default {
           value: 'HTML',
           label: 'HTML'
         }, {
-          value: 'CSS',
-          label: 'CSS'
+          value: 'Css',
+          label: 'Css'
         }, {
-          value: 'VUE',
-          label: 'VUE'
+          value: 'Vue',
+          label: 'Vue'
         }, {
-          value: 'REACT',
-          label: 'REACT'
+          value: 'React',
+          label: 'React'
         },{
-          value: 'JAVA',
-          label: 'JAVA'
+          value: 'java',
+          label: 'java'
         },{
-          value: 'NODE',
-          label: 'NODE'
+          value: 'node,js',
+          label: 'node.js'
         },{
           value: 'C++',
           label: 'C++'
         }],
-        
+        isSure:false
       }
     },
     methods: {
@@ -92,15 +93,15 @@ export default {
                 alert('内容不能为空')
             }else {
                 // 这里可以使用 async 和 await 防止回调地狱
+                this.isSure = true
                 WriteBlog({
                 phone:this.phone,
                 id:this.id
                 }).then(res => {
-                    console.log(res);
                     WriteBloginfo({
                     id:this.id,
                     title:this.title,
-                    time:this.time.slice(0,10),
+                    time:`${this.time.getFullYear()}-${this.time.getMonth()+1}-${this.time.getDay() - 1}`,
                     body:this.text,
                     readcount:"0",
                     likecount:'0',
@@ -116,8 +117,17 @@ export default {
         }
     },
     created() {
-        document.title = "创作中心"
+      document.title = "创作中心"
     },
+    beforeRouteLeave (to, from, next) {
+       if(!this.isSure) {
+         if(confirm("请确保你已经点击确认发布,否则我不会为你保存数据")) {
+          next()
+         }
+       }else {
+         next()
+       }
+    }
 }
 </script>
 

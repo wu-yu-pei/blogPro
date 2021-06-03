@@ -58,10 +58,10 @@
                 <li @click="change" class="change">修改</li>
               </p>
               <p style="padding-left:52px;margin-top:5px">
-                <span style="color:#999aaa">分类专栏</span>
-                <a href="">程序</a>
+                <!-- <span style="color:#999aaa">分类专栏</span>
+                <a href="">程序</a> -->
                 <span>文章标签</span>
-                <a href="">node.js</a>
+                <a>{{type}}</a>
               </p>
             </div>
           </div>
@@ -81,6 +81,7 @@
 <script>
 import {mapState} from 'vuex'
 import showUserActicle from '../../api/showuseracticle/index'
+import searchUser from '../../api/searchuser/index'
 export default {
     name:'showacticle',
     data() {
@@ -89,8 +90,10 @@ export default {
         text:'',
         time:'',
         title:'',
+        type:'',
         id:this.$route.query.id,
-        uname:JSON.parse(localStorage.getItem('userinfo')).username,
+        uname:'',
+        uid:''
       }
     },
     components: {
@@ -110,12 +113,17 @@ export default {
       },
       // 修改
       change() {
-        this.$router.push({
+        if(JSON.parse(localStorage.userinfo).userid == this.uid) {
+          this.$router.push({
           path:"/change",
           query:{
             id:this.id
           }
         })
+        }else {
+          alert("你不是创作者,不能修改!")
+        }
+        
       }
     },
     created() {
@@ -128,20 +136,27 @@ export default {
       // let acticle =localStorage.getItem("acticle") || this.alluseracticle.filter(item => item.acticleinfoid == this.$route.query.id)[0].acticleinfobody
       // let time =localStorage.getItem("acticle") || this.alluseracticle.filter(item => item.acticleinfoid == this.$route.query.id)[0].acticleinfotime
       // this.text = acticle
-
       // 发送请求
-      console.log(this.$route.query.id);
+      document.title = '我的文章'
       showUserActicle({
-        phone:JSON.parse(localStorage.getItem('userinfo')).userid,
-        id:this.$route.query.id
+        // phone:JSON.parse(localStorage.getItem('userinfo')).userid,
+        id:this.id
       }).then(res => {
         this.acticle = res.data[0]
         this.text = this.acticle.acticleinfobody
         this.time = this.acticle.acticleinfotime
         this.title = this.acticle.acticleinfotitle
-        console.log(this.acticle);
+        this.type = this.acticle.acticleinfocol
       })
-      document.title = '我的文章'
+      
+      searchUser({
+        id:this.id,
+        name:20
+      }).then(res => {
+        console.log(res);
+        this.uname = res.data[0].username
+        this.uid = res.data[0].userid
+      })
     },
 }
 </script>
@@ -207,7 +222,7 @@ export default {
       }
     }
     .show-body {
-        width: 1300px;
+        // width: 1300px;
         height: calc(100% - 49px - 15px);
         // overflow: hidden;
         margin: 0 auto;
