@@ -10,7 +10,7 @@ import '../src/assets/css/reset.css'
 
 import 'element-plus/lib/theme-chalk/index.css';
 
-import { ElInput, ElButton, ElCalendar,ElBacktop,ElSelect,ElOption,ElDatePicker,ElPagination} from 'element-plus';
+import { ElInput, ElButton, ElCalendar,ElBacktop,ElSelect,ElOption,ElDatePicker,ElPagination, ElMain} from 'element-plus';
 // 设置elemnt 中文
 import lang from 'element-plus/lib/locale/lang/zh-cn'
 import 'dayjs/locale/zh-cn'
@@ -42,6 +42,7 @@ app.use(ElBacktop)
 app.use(ElOption)
 app.use(ElDatePicker)
 app.use(ElPagination)
+app.use(ElMain)
 app.use(VueMarkdownEditor);
 
 // app.use(waterfall)

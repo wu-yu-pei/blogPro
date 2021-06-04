@@ -3,16 +3,16 @@
     <div class="allusersacticle-left">
       <h1 title="退出" @click="out">Blog</h1>
       <ul>
-        <li><a>前端</a></li>
-        <li><a>后端</a></li>
-        <li><a>Java</a></li>
-        <li><a>Vue</a></li>
-        <li><a>JavaScript</a></li>
-        <li><a>HTML</a></li>
-        <li><a>CSS</a></li>
-        <li><a>Node.js</a></li>
-        <li><a>C</a></li>
-        <li><a>C++</a></li>
+        <li><a @click="getqianduan">前端</a></li>
+        <li><a @click="gethouduan">后端</a></li>
+        <li><a @click="getjava">java</a></li>
+        <li><a @click="getvue">Vue</a></li>
+        <li><a @click="getjs">JavaScript</a></li>
+        <li><a @click="gethtml">HTML</a></li>
+        <li><a @click="getcss">CSS</a></li>
+        <li><a @click="getnode">node.js</a></li>
+        <li><a @click="getreact">React</a></li>
+        <li><a @click="getcc">C++</a></li>
       </ul>
     </div>
     <div class="allusersacticle-right">
@@ -20,7 +20,7 @@
           <i class="el-icon-loading" style="font-size:50px"></i>
         </div>
         <template v-else>
-          <IndexShowItem v-for="item in currentacticle" 
+        <IndexShowItem v-for="item in currentacticle" 
         :key="item.acticleinfoid" 
         :id="item.acticleinfoid" 
         :title="item.acticleinfotitle"
@@ -29,7 +29,6 @@
         :readcount="item.acticleinforeadcount"
         :type="item.acticleinfocol"></IndexShowItem>
         </template>
-        
       <el-pagination
       class="pagination"
       layout="prev, pager, next"
@@ -46,10 +45,12 @@
 <script>
 import getAllUserActicle from "../../api/alluseracticle/index"
 import IndexShowItem from "../../components/IndexShowItem/index"
+import {getqianduan,gethouduan,getvue,getreact,getcss,gethtml,getjava,getnode,getc,getjavascript} from "../../api/indexclassify/index"
 export default {
     name:'alluseracticle',
     data() {
       return {
+        isloading:true,
         alluseracticle:[],
         currentacticle:[],
         pagesize:6
@@ -69,6 +70,82 @@ export default {
       out() {
         this.$router.replace('/')
         localStorage.setItem('blogpro',0)
+      },
+      // 封装一个函数 让每一次请求的数据可以直接用于分页
+      hasclassify(data){
+          this.alluseracticle = data
+          this.currentacticle=[...this.alluseracticle].splice(0,this.pagesize)
+      },
+      // 发送分类请求
+      getjs() {
+        getjavascript().then(res => {
+          if(res.status === 200) {
+            this.hasclassify(res.data)
+          }
+        })
+      },
+      getqianduan() {
+        getqianduan().then(res => {
+          if(res.status === 200) {
+            this.hasclassify(res.data)
+          }
+        })
+      },
+      gethouduan() {
+        gethouduan().then(res => {
+          if(res.status === 200) {
+            this.hasclassify(res.data)
+          }
+        })
+      },
+      getjava() {
+        getjava().then(res => {
+          if(res.status === 200) {
+            this.hasclassify(res.data)
+          }
+        })
+      },
+      getnode() {
+        getnode().then(res => {
+          if(res.status === 200) {
+            this.hasclassify(res.data)
+          }
+        })
+      },
+      gethtml() {
+        gethtml().then(res => {
+          if(res.status === 200) {
+            this.hasclassify(res.data)
+          }
+        })
+      },
+      getcc() {
+        getc().then(res => {
+          if(res.status === 200) {
+            this.hasclassify(res.data)
+          }
+        })
+      },
+      getcss() {
+        getcss().then(res => {
+          if(res.status === 200) {
+            this.hasclassify(res.data)
+          }
+        })
+      },
+      getvue() {
+        getvue().then(res => {
+          if(res.status === 200) {
+            this.hasclassify(res.data)
+          }
+        })
+      },
+      getreact() {
+        getreact().then(res => {
+          if(res.status === 200) {
+            this.hasclassify(res.data)
+          }
+        })
       }
     },
     computed: {

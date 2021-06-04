@@ -5,6 +5,7 @@ module.exports = {
     lintOnSave: false, //是否开启eslint检测,false不开启，有效值：true || false
     productionSourceMap: true, //生成环境下面开启sourceMap支持断点调试
     devServer: {
+        disableHostCheck: true,//让项目支持内网穿透
         open: false, //是否启动打开浏览器
         host: "0.0.0.0", //主机，0.0.0.0支持局域网地址，可以用真机测试
         port: 8080, //端口
@@ -13,6 +14,7 @@ module.exports = {
         proxy: {
             "/api": {
                 target: "http://127.0.0.1:8081",
+                // target: "http://3635333bb4.wicp.vip/",
                 changeOrigin: true,
                 // sccure:false,
                 pathRewrite: {

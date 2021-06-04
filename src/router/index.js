@@ -35,7 +35,8 @@ const routes = [
   {
     path:'/alluseracticle',
     name:'alluseracticel',
-    component:() => import("../views/AllUserActicle/index.vue")
+    component:() => import("../views/AllUserActicle/index.vue"),
+    meta:{keepAlive:true}
   },
   {
     path:'/contact',

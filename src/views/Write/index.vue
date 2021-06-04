@@ -60,7 +60,16 @@ export default {
         options: [{
           value: 'JavaScript',
           label: 'JavaScript'
-        }, {
+        },
+        {
+          value: '前端',
+          label: '前端'
+        },
+        {
+          value: '后端',
+          label: '后端'
+        }, 
+        {
           value: 'HTML',
           label: 'HTML'
         }, {
@@ -76,7 +85,7 @@ export default {
           value: 'java',
           label: 'java'
         },{
-          value: 'node,js',
+          value: 'node.js',
           label: 'node.js'
         },{
           value: 'C++',
