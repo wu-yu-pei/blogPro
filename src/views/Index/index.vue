@@ -29,7 +29,7 @@
         <p>love work</p>
         <!-- <img src="../../assets/imgs/index-ban.png" alt=""> -->
         <div class="index-info-image">
-          <img src="../../assets/imgs/infoimg.gif " alt="">
+          <img :src="'http://vueshop.glbuys.com/userfiles/head/'+imgurl" alt="">
         </div>
       </div>
       <div class="index-info">
@@ -142,11 +142,12 @@ export default {
       let date = new Date()
       let infoname = ref('')
       let infobirthday = ref('')
-
+      let imgurl = "236214902.gif"
       return {
         date,
         infoname,
-        infobirthday
+        infobirthday,
+        imgurl
       }
     },
     data() {
@@ -213,6 +214,7 @@ export default {
         // console.log(res);
         this.infoname = res.data[0].username
         this.infobirthday = res.data[0].userinit
+        this.imgurl = res.data[0].userimg  || this.imgurl
       })
       // 发请求 提取标签
       getUserAllActicle({phone:JSON.parse(localStorage.getItem("userinfo")).userid}).then(res => {

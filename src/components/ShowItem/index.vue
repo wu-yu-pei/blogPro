@@ -36,7 +36,7 @@ export default {
         },
         body:{
             type:String,
-            default:'...'
+            default:'...'   
         },
         readcount:{
             type:String,
